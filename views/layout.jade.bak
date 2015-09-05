@@ -1,0 +1,32 @@
+doctype html
+html(lang='zh-CN')
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		title List Challenges
+		link(rel='stylesheet', href='/css/bootstrap.min.css')
+		//if lt IE 9
+		//link(rel='stylesheet', href='/css/bootstrap.css')
+		//script(type='text/javascript', src='/scripts/plugins/jqplot/excanvas.min.js')
+		link(href='http://www.listchallenges.com/bundles/styles?v=gTpHJLUUMHjQGAjIO5yzKI2v9T3XibPyxPVMLaAnTFw1', rel='stylesheet')
+		//if lt IE 9
+		//link(rel='stylesheet', href='/styles/plugins/lt-ie9.css')
+		//if lt IE 8
+		//link(rel='stylesheet', href='/styles/plugins/lt-ie8.css')
+		// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+		// WARNING: Respond.js doesn't work if you view the page via file://
+		//if lt IE 9
+		//script(src='//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+		//script(src='//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+		link(href='/favicon.png', rel='icon', type='image/png')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+		meta(name='description', content="Earn points for your life experiences. Find lists that interest you and mark off the things you've done - movies you've seen, books you've read, foods you've eaten, places you've visited and much more.")
+		meta(property='og:description', content="Earn points for your life experiences. Find lists that interest you and mark off the things you've done - movies you've seen, books you've read, foods you've eaten, places you've visited and much more.")
+		link(rel='apple-touch-icon', href='/i/logo-big.png')
+		link(rel='image_src', href='http://www.listchallenges.com/i/logo-big.png')
+		meta(property='og:image', content='http://www.listchallenges.com/i/logo-big.png')
+		meta(property='og:title', content='List Challenges')
+		meta(property='fb:app_id', content='253841154742565')
+		meta(property='og:site_name', content='List Challenges')
+	body
+		block content

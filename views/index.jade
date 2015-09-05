@@ -1,5 +1,1288 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #headerFixed_panelHeaderWrapper.visible-xs
+    div(style='height:55px')  
+      header#header-fixed.clearfix.shadow
+        button.navbar-toggle.collapsed.visible-xs(type='button', data-toggle='collapse', data-target='.bs-navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        nav#header-buttons.clearfix
+          #panelHeaderLogo.cursor-pointer.fl(onclick="Redirect('/');")
+            img#headerLogoImage.fl(src='/images/logo.png')
+            img#headerLogoTitle(src='/images/title.png')
+          a.header-button(href='/create-list')
+            span.glyphicon.glyphicon-plus-sign.relative.hidden-md(style='top: 2px')
+            |  Make a List
+          a.header-button(href='/lists/search')
+            span.glyphicon.glyphicon-search.relative(style='top: 2px')
+          .fr.hidden-xs
+            #headerFixed_ctl01_panelLoggedInMenu
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a#headerFixed_ctl01_linkProfile.navbar-profile-link(href='/profile/242686', style='padding-right:5px')
+                    img#headerFixed_ctl01_imageUser(src='/images/users/df581fdc-c557-4cf8-ad44-e41b31f5b43b.jpg')
+                    |         My Profile
+                li.dropdown
+                  a.dropdown-toggle.navbar-settings-icon(href='#', data-toggle='dropdown')
+                    span.glyphicon.glyphicon-cog
+                  ul.dropdown-menu
+                    li
+                      a(href='/account') My Account
+                    li
+                      a(href='/login/logout') Log Out
+        #header-drop-down.closed
+          table
+            tr
+              td
+                #sub-menu-buttons
+                  #subMenuButtonTrending.sub-menu-button.selected(data-sort='trending', onclick='RedirectToCurrentHeaderSelection();')
+                    span.glyphicon.glyphicon-arrow-up
+                    |  Trending
+                  #subMenuButtonNew.sub-menu-button(data-sort='new', onclick='RedirectToCurrentHeaderSelection();')
+                    span.glyphicon.glyphicon-time
+                    |  New
+                  #subMenuButtonPopular.sub-menu-button(data-sort='popular', onclick='RedirectToCurrentHeaderSelection();')
+                    span.glyphicon.glyphicon-user
+                    |  Popular
+              td
+                #header-list-views
+                  #header-view-movies-popular(style='display: none')
+                    #headerFixed_viewMoviesPopular_repeater.header-list-repeater.clearfix
+                  #header-view-movies-new(style='display: none')
+                    #headerFixed_viewMoviesNew_repeater.header-list-repeater.clearfix
+                  #header-view-movies-trending(style='display: none')
+                    #headerFixed_viewMoviesTrending_repeater.header-list-repeater.clearfix
+                  #header-view-books-popular(style='display: none')
+                    #headerFixed_viewBooksPopular_repeater.header-list-repeater.clearfix
+                  #header-view-books-new(style='display: none')
+                    #headerFixed_viewBooksNew_repeater.header-list-repeater.clearfix
+                  #header-view-books-trending(style='display: none')
+                    #headerFixed_viewBooksTrending_repeater.header-list-repeater.clearfix
+                  #header-view-food-popular(style='display: none')
+                    #headerFixed_viewFoodPopular_repeater.header-list-repeater.clearfix
+                  #header-view-food-new(style='display: none')
+                    #headerFixed_viewFoodNew_repeater.header-list-repeater.clearfix
+                  #header-view-food-trending(style='display: none')
+                    #headerFixed_viewFoodTrending_repeater.header-list-repeater.clearfix
+                  #header-view-travel-popular(style='display: none')
+                    #headerFixed_viewTravelPopular_repeater.header-list-repeater.clearfix
+                  #header-view-travel-new(style='display: none')
+                    #headerFixed_viewTravelNew_repeater.header-list-repeater.clearfix
+                  #header-view-travel-trending(style='display: none')
+                    #headerFixed_viewTravelTrending_repeater.header-list-repeater.clearfix
+                  #header-view-other-popular(style='display: none')
+                    #headerFixed_viewOtherPopular_repeater.header-list-repeater.clearfix
+                  #header-view-other-new(style='display: none')
+                    #headerFixed_viewOtherNew_repeater.header-list-repeater.clearfix
+                  #header-view-other-trending(style='display: none')
+                    #headerFixed_viewOtherTrending_repeater.header-list-repeater.clearfix
+        .visible-xs
+          nav.navbar-collapse.bs-navbar-collapse.collapse(role='navigation', aria-expanded='false', style='height: 1px;')
+            ul.nav.navbar-nav
+              li.active
+                a.link-no-underline-hover(href='/profile')
+                  span.glyphicon.glyphicon-user
+                  |  My Profile
+              li
+                a.link-no-underline-hover(href='/lists')
+                  span.glyphicon.glyphicon-list
+                  |  Browse Lists
+              li
+                a.link-no-underline-hover(href='/lists/search')
+                  span.glyphicon.glyphicon-search
+                  |  Search Lists
+              li
+                a.link-no-underline-hover(href='/create-list')
+                  span.glyphicon.glyphicon-plus-sign
+                  |  Make a List
+              li
+                a.link-no-underline-hover(href='/leaders')
+                  span.glyphicon.glyphicon-certificate
+                  |  Leaders
+              li
+                a.link-no-underline-hover(href='/contact')
+                  span.glyphicon.glyphicon-envelope
+                  |  Contact Us / Help
+              li
+                a.link-no-underline-hover(href='/account')
+                  span.glyphicon.glyphicon-cog
+                  |  My Account
+              li
+                a.link-no-underline-hover(href='/login/logout')
+                  span.glyphicon.glyphicon-remove-circle
+                  |  Log Out
+              li
+        #header-message
+      #header-page-title-wrapper
+        #header-page-title.shadow.h4.clearfix
+          div
+            div(style='width:0')
+              .page-title-text
+            .header-share-buttons-wrapper
+              .addthis_sharing_toolbox
+  #header-static.hidden-xs
+      .container
+        .content
+          #headerStatic_panelHeaderStaticLogo.cursor-pointer.fl(onclick="Redirect('/');")
+            img#headerStaticLogoImage.fl.img-logo(src='/images/logo.png')
+            img#headerStaticLogoTitle(src='/images/title.png')
+          #header-static-search
+            #headerStatic_ctl00_panelHeader
+              input#textBoxHeaderQuickSearch.form-control.text-box-quick-search(name='ctl00$ctl00$headerStatic$ctl00$textBoxHeaderQuickSearch', type='text', placeholder='Search Lists', data-animation='quickSearch', data-quick-search-name='HeaderQuickSearch', autocomplete='off')
+              #headerStatic_ctl00_ctl00
+                .quick-search-results-wrapper
+                  #repeaterHeaderQuickSearch.quick-search-results.clearfix
+                input#hiddenButtonHeaderQuickSearch(type='submit', name='ctl00$ctl00$headerStatic$ctl00$hiddenButtonHeaderQuickSearch', value='', style='display:none;')
+          #header-static-right-top
+            #headerStatic_ctl01_panelLoggedInMenu
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a#headerStatic_ctl01_linkProfile.navbar-profile-link(href='/profile/242686', style='padding-right:5px')
+                    img#headerStatic_ctl01_imageUser(src='/images/users/df581fdc-c557-4cf8-ad44-e41b31f5b43b.jpg')
+                    |         My Profile
+                li.dropdown
+                  a.dropdown-toggle.navbar-settings-icon(href='#', data-toggle='dropdown')
+                    span.glyphicon.glyphicon-cog
+                  ul.dropdown-menu
+                    li
+                      a(href='/account') My Account
+                    li
+                      a(href='/login/logout') Log Out
+          #header-static-sound
+            a#headerStatic_ctl02_buttonToggleSound.button-toggle-sound.link-no-underline-hover(title='turn sound on', formnovalidate='formnovalidate', href="javascript:__doPostBack('ctl00$ctl00$headerStatic$ctl02$buttonToggleSound','')")
+              span.glyphicon.glyphicon-volume-off
+          #header-static-right-bottom
+            a.lll(href='/create-list')
+              span.glyphicon.glyphicon-plus-sign
+              |  Make 
+              span.hidden-sm a 
+              | List
+            a(href='/leaders')
+              span.glyphicon.glyphicon-certificate
+              |  Leaders
+      #header-static-message
+  .container
+      #MainContent_MainContent_panelCarousel.mmm.t
+        #carousel-home.carousel.slide(data-ride='carousel', data-wrap='true')
+          // Indicators
+          ol.carousel-indicators
+            li.active(data-target='#carousel-home', data-slide-to='0')
+            li(data-target='#carousel-home', data-slide-to='1')
+            li(data-target='#carousel-home', data-slide-to='2')
+            li(data-target='#carousel-home', data-slide-to='3')
+          // Wrapper for slides
+          .carousel-inner
+            .item.active
+              div
+                img.img-slide(src='/images/home-slide-1.jpg', alt='something')
+              .carousel-caption
+                .h1
+                  span.glyphicon.glyphicon-check
+                .h2.ttt.mm
+                  | Earn Points For Your Life Experiences
+                div
+                  | Find lists that interest you and mark off the things you've done.
+            .item
+              div
+                img.img-slide(src='/images/home-slide-2.jpg', alt='something')
+              .carousel-caption
+                .h1
+                  span.glyphicon.glyphicon-pushpin
+                .h2.ttt.mm
+                  | Track Stuff You Want to Do
+                div
+                  | Add items to your to-do list.
+            .item
+              div
+                img.img-slide(src='/images/home-slide-3.jpg', alt='something')
+              .carousel-caption
+                .h1
+                  span.glyphicon.glyphicon-plus-sign
+                .h2.ttt.mm
+                  a(href='/create-list') Make a List
+                  |  and See the Results
+                div
+                  | Fast and easy-to-use list creator. Detailed statistics.
+            .item
+              div
+                img.img-slide(src='/images/home-slide-4.jpg', alt='something')
+              .carousel-caption
+                .h1
+                  span.glyphicon.glyphicon-thumbs-up
+                .h2.ttt.mm
+                  | Vote on Items to Reorder Lists
+                div
+                  | Challenge the status quo.
+          // Controls
+          a.left.carousel-control(href='#carousel-home', role='button', data-slide='prev')
+            span.glyphicon.glyphicon-chevron-left
+          a.right.carousel-control(href='#carousel-home', role='button', data-slide='next')
+            span.glyphicon.glyphicon-chevron-right
+      .hidden-xs
+        ul#MainContent_MainContent_navsCategories.nav.nav-tabs.nav-justified.nav-tabs-above-content
+          li.active
+            a(href='/lists/all/trending')
+              span.glyphicon.glyphicon-list
+              |  All (14,851)
+          for val, index in categories.datastr
+            li
+              a(href=val.Lnk)
+                span.glyphicon(class=val.Icon)
+                |  #{val.Name} 
+                span.hidden-sm (#{val.Comments})
+      .visible-xs
+        ul#MainContent_MainContent_navsCategoriesXS.nav.nav-tabs.nav-tabs-above-content
+          li.active
+            a(href='/lists/all/trending')
+              span.glyphicon.glyphicon-list
+              |  All
+          for val, index in categories.datastr
+            li
+              a(href=val.Lnk)
+                span.glyphicon(class=val.Icon)
+      .content.cb
+        .fl-sm
+          #MainContent_MainContent_navsSort.btn-group
+            a.btn.btn-primary(href='/lists/all/trending')
+              span.glyphicon.glyphicon-arrow-up
+              |  Trending
+            a.btn.btn-default(href='/lists/all/new')
+              span.glyphicon.glyphicon-time
+              |  New
+            a.btn.btn-default(href='/lists/all/popular')
+              span.glyphicon.glyphicon-user
+              |  Popular
+        .h.fl.llll.hidden-xs
+        hr.tt.mm.visible-xs
+        .fl-sm
+          .form-group
+            div
+              #customMainContent_MainContent_buttonSetFilterUsed.btn-group
+                a.btn.btn-primary(onclick="$('#MainContent_MainContent_buttonSetFilterUsed_0').prop('checked',true).click();", href='javascript:void(0);') All
+                a.btn.btn-default(onclick="$('#MainContent_MainContent_buttonSetFilterUsed_1').prop('checked',true).click();", href='javascript:void(0);')
+                  span.glyphicon.glyphicon-check
+                  |  Used
+                a.btn.btn-default(onclick="$('#MainContent_MainContent_buttonSetFilterUsed_2').prop('checked',true).click();", href='javascript:void(0);')
+                  span.glyphicon.glyphicon-unchecked
+                  |  Unused
+            table#MainContent_MainContent_buttonSetFilterUsed.display-none
+              tr
+                td
+                  input#MainContent_MainContent_buttonSetFilterUsed_0(type='radio', name='ctl00$ctl00$MainContent$MainContent$buttonSetFilterUsed', value='all', checked='checked')
+                  label(for='MainContent_MainContent_buttonSetFilterUsed_0') All
+              tr
+                td
+                  input#MainContent_MainContent_buttonSetFilterUsed_1(type='radio', name='ctl00$ctl00$MainContent$MainContent$buttonSetFilterUsed', value='used', onclick="javascript:setTimeout('__doPostBack(\'ctl00$ctl00$MainContent$MainContent$buttonSetFilterUsed$1\',\'\')', 0)")
+                  label(for='MainContent_MainContent_buttonSetFilterUsed_1')
+                    span.glyphicon.glyphicon-check
+                    |  Used
+              tr
+                td
+                  input#MainContent_MainContent_buttonSetFilterUsed_2(type='radio', name='ctl00$ctl00$MainContent$MainContent$buttonSetFilterUsed', value='unused', onclick="javascript:setTimeout('__doPostBack(\'ctl00$ctl00$MainContent$MainContent$buttonSetFilterUsed$2\',\'\')', 0)")
+                  label(for='MainContent_MainContent_buttonSetFilterUsed_2')
+                    span.glyphicon.glyphicon-unchecked
+                    |  Unused
+        ul#MainContent_MainContent_pagerTop.pagination.fr-sm
+          li.disabled
+            span «
+          li.active
+            span 1
+          li
+            a.pager-link(href='/lists/all/trending/2') 2
+          li
+            a.pager-link(href='/lists/all/trending/3') 3
+          li
+            a.pager-link(href='/lists/all/trending/4') 4
+          li
+            a.pager-link(href='/lists/all/trending/5') 5
+          li
+            a.pager-link(href='/lists/all/trending/6') 6
+          li
+            a.pager-link(href='/lists/all/trending/7') 7
+          li
+            a.pager-link(href='/lists/all/trending/8') 8
+          li
+            a.pager-link(href='/lists/all/trending/9') 9
+          li
+            a(href='/lists/all/trending/2') »
+        .cb.h
+        #MainContent_MainContent_listRepeater_panelWrapper
+          #MainContent_MainContent_listRepeater_repeater.list-repeater.clearfix(data-animation='lazyLoad')
+            div
+              a.clearfix(href='/places-in-michigan')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/3da42904-26af-463b-8318-3b9bae45861d.jpg', src='/images/b.gif')
+                .list-name Places in Michigan
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  20,902 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  48
+            div
+              a.clearfix(href='/saddest-movies')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/062d0c59-4e4f-408e-b2d8-b756a6bb282e.jpg', src='/images/b.gif')
+                .list-name The 27 Saddest Movies
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  16,093 today
+                      td
+                        span.no-wrap
+                          span.glyphicon.glyphicon-star.star-score.active
+                      td
+                        span.glyphicon.glyphicon-ok
+                        |  1/27
+            div
+              a.clearfix(href='/50-must-see-places-in-the-uk-how-many-have-you')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/eb3f289a-0a79-44b1-8257-59e3530f2601.jpg', src='/images/b.gif')
+                .list-name 50 Must See Places in the UK
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  14,329 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  50
+            div
+              a.clearfix(href='/afi-100-years-100-movies-10th-anniversary-edition')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/17f40935-1a81-4baf-b78a-365942e5d389.jpg', src='/images/b.gif')
+                .list-name AFI's 100 Years, 100 Movies - 10th Anniversary Edition
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  5,844 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  100
+            div
+              a.clearfix(href='/how-many-walt-disney-world-attractions-have')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/be6f48d0-2319-441b-8e5b-4eac5f55228c.jpg', src='/images/b.gif')
+                .list-name Walt Disney World Attractions
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  4,103 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  87
+            div
+              a.clearfix(href='/100-places-to-visit')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/98d4ec6b-5aad-4336-b666-1ea90d54bf59.jpg', src='/images/b.gif')
+                .list-name The Travel List Challenge's 100 Places to Visit Before You Die
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  3,906 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/kaunismina-bbc-6-books-challenge')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/93d5f8b7-5158-43db-bdcc-484322c24e5b.jpg', src='/images/b.gif')
+                .list-name BBC Believes You Only Read 6 of These Books...
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  3,695 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  100
+            div
+              a.clearfix(href='/movies-based-on-real-lives')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/5e0cbf24-fe8d-43df-a4c6-7846a648ba11.jpg', src='/images/b.gif')
+                .list-name 26 Movies Based On Real Lives
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  2,447 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  26
+            div
+              a.clearfix(href='/the-american-midwest')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/ffc20ba1-deb2-4c67-8a7e-00bd340ce495.jpg', src='/images/b.gif')
+                .list-name The American Midwest
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  2,410 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/bbcs-50-food-before-you-die')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/3569a6e6-57f9-4cfd-9f69-8d1fdc3074c3.jpg', src='/images/b.gif')
+                .list-name BBC's 50 Foods to Eat Before You Die
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  2,403 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  50
+            div
+              a.clearfix(href='/imdb-top-250-movies-of-all-time-1202015')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/f7ed31cc-7706-4cb4-b87a-31f3a578cd37.jpg', src='/images/b.gif')
+                .list-name IMDb Top 250 Movies of All Time (2015 Update)
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  2,399 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  250
+            div
+              a.clearfix(href='/buzzfeed-26-books-that-will-change-the-way-you')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/31bcfa03-aaa1-48c3-b107-4663741b577f.jpg', src='/images/b.gif')
+                .list-name 26 Books That Will Change the Way You See the World
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  2,247 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  26
+            div
+              a.clearfix(href='/attractiontixs-50-european-attractions-to-see')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/85b63fe9-da36-4e0f-bb64-d1ff863b3265.jpg', src='/images/b.gif')
+                .list-name AttractionTix’s Top 50 European Attractions to See Before You Die
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  2,084 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  50
+            div
+              a.clearfix(href='/must-be-visited-places')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/de1e5930-6f69-40b1-8f2c-5fbdbf809fba.jpg', src='/images/b.gif')
+                .list-name 248 Wonderful Places That Must Be Visited
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,682 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  248
+            div
+              a.clearfix(href='/200-period-films')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/95f3397d-4a6e-4515-90bc-83db1e2b6e28.jpg', src='/images/b.gif')
+                .list-name 200 Period Piece Films
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,651 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  200
+            div
+              a.clearfix(href='/the-ultimate-usa-wonders-list')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/f3886a44-2b0d-47a8-bb2c-f2b9b56916d3.jpg', src='/images/b.gif')
+                .list-name The Ultimate USA Wonders List
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,414 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  200
+            div
+              a.clearfix(href='/wes-craven-filmography')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/1ba45265-81b0-4a99-9597-dc7010e08ec9.jpg', src='/images/b.gif')
+                .list-name Selected Wes Craven Films
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,348 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  25
+            div
+              a.clearfix(href='/complete-disney-and-subsidiaries-movies')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/7fbb97b9-6c35-49a0-b1f1-790a03550b0e.jpg', src='/images/b.gif')
+                .list-name Complete List of Walt Disney Movies (2015 Update)
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,276 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  783
+            div
+              a.clearfix(href='/movies-of-marvel')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/aee1d307-df16-4116-b158-79b5e6a8a0b4.jpg', src='/images/b.gif')
+                .list-name Movies of Marvel Comics
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,224 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  66
+            div
+              a.clearfix(href='/101-80s-movies-how-many')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/a61585c7-a4e2-4603-b8a6-0c67b1990ec3.jpg', src='/images/b.gif')
+                .list-name 101 80s Movies
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,125 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  101
+            div
+              a.clearfix(href='/california-tourist-attractions')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/8a465777-baff-44cf-9eff-c2a745f4e7ad.jpg', src='/images/b.gif')
+                .list-name California Tourist Attractions
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,122 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/75-of-the-most-popular-films-of-1980-1995')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/6fe7b1b9-887b-416a-b838-ba0f52ca4a31.jpg', src='/images/b.gif')
+                .list-name 75 of the Most Popular Films of 1980-1995
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  1,085 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  75
+            div
+              a.clearfix(href='/100-cities')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/ed19c661-b28f-4d40-ae10-ba712b4ff360.jpg', src='/images/b.gif')
+                .list-name 100 Cities Checklist
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  989 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/amazons-100-books-to-read-in-a-lifetime')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/e5beb02b-2719-4b88-a045-6607b1bf39c5.jpg', src='/images/b.gif')
+                .list-name Amazon's 100 Books to Read In a Lifetime
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  975 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  100
+            div
+              a.clearfix(href='/the-food-list-challenge')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/1f9f67c7-bf0e-4782-8840-02b9858cf0f8.jpg', src='/images/b.gif')
+                .list-name The Food List Challenge's 100 Foods to Try Before You Die
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  813 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  100
+            div
+              a.clearfix(href='/100-books-worth-reading')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/3cdfb7c4-8fb8-44fe-ae76-5504123eb9c0.jpg', src='/images/b.gif')
+                .list-name 100 Books Worth Reading
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  791 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  100
+            div
+              a.clearfix(href='/disney-movies')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/44c87d57-cd27-4c3e-8921-75dec4fc2941.jpg', src='/images/b.gif')
+                .list-name Complete List of Walt Disney Movies
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  788 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  492
+            div
+              a.clearfix(href='/foodie-list')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/1f3d6940-c97b-4fcf-a88e-b70d768554ae.jpg', src='/images/b.gif')
+                .list-name Foodie List
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  576 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  100
+            div
+              a.clearfix(href='/the-most-popular-attraction-in-each-state')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/26a7ea62-65be-4f2b-8cad-fa9162562d22.jpg', src='/images/b.gif')
+                .list-name The Most Popular Tourist Attraction in Every U.S. State
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  511 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  50
+            div
+              a.clearfix(href='/goodreads-books-that-everyone-should-read-at')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/b3e572cb-2e95-47ca-9057-bb6739422762.jpg', src='/images/b.gif')
+                .list-name Top 50 Books That Everyone Should Read At Least Once (Goodreads)
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  488 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  50
+            div
+              a.clearfix(href='/empire-magazines-500-greatest-films-of-all-time')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/063bb835-e555-4572-84fc-f7be57e6d616.jpg', src='/images/b.gif')
+                .list-name Empire Magazine's 500 Greatest Films of All Time
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  485 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  500
+            div
+              a.clearfix(href='/bucket-list-things')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/e3d0a346-0c08-49a7-abe2-d59f49952ab6.jpg', src='/images/b.gif')
+                .list-name The Typical Bucket List
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  483 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-th-large
+                        |  94
+            div
+              a.clearfix(href='/100-wonders-of-europe')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/68aa744e-f9f7-4728-8375-b254881021ac.jpg', src='/images/b.gif')
+                .list-name 100 Wonders of Europe
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  463 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/100-basic-training-movies-at-the-nerd-academy')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/1f658230-9b1a-45c4-902e-218ccd816a95.jpg', src='/images/b.gif')
+                .list-name 100 Basic Training Movies at Nerd Academy
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  410 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  100
+            div
+              a.clearfix(href='/candy-bars')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/e9b6154e-2427-4d35-846f-1b04ecafb831.jpg', src='/images/b.gif')
+                .list-name 80 Candy Bars
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  375 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  80
+            div
+              a.clearfix(href='/movie-list-for-sci-fi-lovers')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/f1461191-c3c3-47af-8bc4-fa42ca4ffaf3.jpg', src='/images/b.gif')
+                .list-name Movie List for Sci-Fi Lovers
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  365 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  300
+            div
+              a.clearfix(href='/the-fast-food-challenge')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/4ca9db5e-6ad2-4a6e-be2a-0d4e266e80fc.jpg', src='/images/b.gif')
+                .list-name The Fast Food Challenge
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  365 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  80
+            div
+              a.clearfix(href='/places-to-visit-in-ontario')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/ef5fe29d-d0dd-4053-8cb6-8ba3bf8838c3.jpg', src='/images/b.gif')
+                .list-name Places to Visit in Ontario
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  364 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  70
+            div
+              a.clearfix(href='/books-to-read-to-be-considered-well-read')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/d42a427e-1b86-4de0-8fe5-d661a1c7e0fc.jpg', src='/images/b.gif')
+                .list-name Books to Read to Be Considered Well Read
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  348 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  143
+            div
+              a.clearfix(href='/92-best-board-games-of-all-time')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/45595ec5-7e32-44fc-8b25-a5ca1d9424aa.jpg', src='/images/b.gif')
+                .list-name 76 Best Board Games of All Time
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  326 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-th-large
+                        |  76
+            div
+              a.clearfix(href='/countries-of-the-world')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/eb9f8262-fec0-449c-9ea9-a3ca52aa8fcd.jpg', src='/images/b.gif')
+                .list-name Countries of the World
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  287 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  200
+            div
+              a.clearfix(href='/50-books-to-read-before-you-die')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/7899cc01-8e01-4871-a786-96a4202c4357.jpg', src='/images/b.gif')
+                .list-name 50 Books to Read Before You Die
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  264 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  50
+            div
+              a.clearfix(href='/truly-canadian-foods')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/4c7b7ebc-6a36-41e1-8274-a2f194296fe4.jpg', src='/images/b.gif')
+                .list-name Truly Canadian Foods
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  264 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  50
+            div
+              a.clearfix(href='/popular-movies-from-1980-to-current')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/fc209341-fa50-4cd9-a779-c2b2f30c73d0.jpg', src='/images/b.gif')
+                .list-name 35 Years of Popular Movies (1980-2015)
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  254 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  360
+            div
+              a.clearfix(href='/100-must-eat-american-foods')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/d4f7293e-77b9-438c-a8b9-cf7897d89598.jpg', src='/images/b.gif')
+                .list-name 100 Must-Eat American Foods
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  247 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  100
+            div
+              a.clearfix(href='/places-in-uk')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/29331bf4-128e-4c0a-8d40-5dcc8a6984bc.jpg', src='/images/b.gif')
+                .list-name Places in the UK
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  244 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  89
+            div
+              a.clearfix(href='/buzzfeeds-33-of-the-best-tv-shows-to-binge-watch')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/2883a7d7-e737-4d1f-a6ad-cd446a7e0a16.jpg', src='/images/b.gif')
+                .list-name 33 Best TV Shows to Binge-Watch
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  243 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-th-large
+                        |  33
+            div
+              a.clearfix(href='/good-and-bad-life-experiences')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/1af94ee9-be51-48b2-b6f4-4a5dfb358376.jpg', src='/images/b.gif')
+                .list-name Good and Bad Life Experiences
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  228 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-th-large
+                        |  244
+            div
+              a.clearfix(href='/350-popular-classics-on-goodreads')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/7a44f521-eec5-4f5e-b340-ca1c3d08410e.jpg', src='/images/b.gif')
+                .list-name 350 Popular Classics on Goodreads
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  212 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  350
+            div
+              a.clearfix(href='/the-ultimate-cape-town-bucket-list-100-things')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/4c902130-6dab-45ad-8b1e-8ea2beeee9b4.jpg', src='/images/b.gif')
+                .list-name The ultimate Cape Town bucket list: 100 things to do before you die
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  211 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/rory-gilmore-reading-challenge')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/2daafe40-6b23-431d-bd7a-9183a8b5e4d7.jpg', src='/images/b.gif')
+                .list-name The Rory Gilmore Reading Challenge
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  207 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  339
+            div
+              a.clearfix(href='/girly-teen-movies')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/c10fe5d9-9a17-4597-ab9d-f72e3555c34d.jpg', src='/images/b.gif')
+                .list-name 99 Girly Teen Movies
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  206 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-facetime-video
+                        |  99
+            div
+              a.clearfix(href='/books-to-brag-about-reading')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/bac5e959-4aaf-4477-a7cb-70e50f410459.jpg', src='/images/b.gif')
+                .list-name Books To Brag About Reading
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  204 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  84
+            div
+              a.clearfix(href='/restaurants-eaten-at')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/d9677b0e-281c-40c7-9a60-a535b4806ed5.jpg', src='/images/b.gif')
+                .list-name Restaurants Where I've Eaten
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  193 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-cutlery
+                        |  84
+            div
+              a.clearfix(href='/allys-reverse-bucket-list')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/84eb1284-7f3c-4ea2-a5a1-0bc3f8e2c2df.jpg', src='/images/b.gif')
+                .list-name Ally's Reverse Bucket List
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  189 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-th-large
+                        |  100
+            div
+              a.clearfix(href='/npr-top-100-science-fiction-and-fantasy-books')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/f73cecd7-1972-4da5-8162-e2b58c267457.jpg', src='/images/b.gif')
+                .list-name NPR's Top 100 Science-Fiction & Fantasy Books
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  188 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-book
+                        |  100
+            div
+              a.clearfix(href='/top-100-places-to-see-in-canada-how-many-have')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/a45dc956-d9a7-4033-8107-625ace7847e6.jpg', src='/images/b.gif')
+                .list-name Top 100 Places to See in Canada
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  183 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  100
+            div
+              a.clearfix(href='/weird-habits')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/3ea1d9a3-7ffb-438f-8e72-78034b2b6afd.jpg', src='/images/b.gif')
+                .list-name Weird Habits
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  181 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-th-large
+                        |  30
+            div
+              a.clearfix(href='/150-most-famous-landmarks-in-the-world')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/6c536c33-489b-4bee-b259-00074fa53a0d.jpg', src='/images/b.gif')
+                .list-name 150 Most Famous Landmarks of the World
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  181 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  150
+            div
+              a.clearfix(href='/top-50-cities-to-see-in-your-lifetime')
+                .list-image-wrapper
+                  img.lazy-load(data-original='/f/lists/41b57694-ed83-4c2d-b750-6e3274df3f51.jpg', src='/images/b.gif')
+                .list-name Huffington Post's Top 50 Cities to See in Your Lifetime
+                .list-repeater-info.text-light-gray
+                  table
+                    tr
+                      td
+                        span.glyphicon.glyphicon-user
+                        |  178 today
+                      td
+                      td
+                        span.glyphicon.glyphicon-globe
+                        |  50
+        .text-center
+          ul#MainContent_MainContent_pagerBottom.pagination.tttt.mmmm
+            li.disabled
+              span «
+            li.active
+              span 1
+            li
+              a.pager-link(href='/lists/all/trending/2') 2
+            li
+              a.pager-link(href='/lists/all/trending/3') 3
+            li
+              a.pager-link(href='/lists/all/trending/4') 4
+            li
+              a.pager-link(href='/lists/all/trending/5') 5
+            li
+              a.pager-link(href='/lists/all/trending/6') 6
+            li
+              a.pager-link(href='/lists/all/trending/7') 7
+            li
+              a.pager-link(href='/lists/all/trending/8') 8
+            li
+              a.pager-link(href='/lists/all/trending/9') 9
+            li
+              a(href='/lists/all/trending/2') »
+      .hhhh.cb
+      footer
+        .content-wrapper
+          .fl-sm
+            | © 2015 App Spring, Inc.
+            span.hidden-xs ·
+            .visible-xs.h
+            a(onclick='ShowHelp();return false;', href='javascript:void(0);') Help
+            |             · 
+            a(href='/contact') Contact Us
+            |             · 
+            a(href='/privacy') Privacy/Terms
+            |             · 
+            a(href='/contact/copyright') Copyright Claims
+  #panelAudio
+      audio#audioItemCheck(preload='auto')
+        source(src='/i/sounds/item-check.mp3', type='audio/mpeg')
+        source(src='/i/sounds/item-check.ogg', type='audio/ogg')
+      audio#audioItemUncheck(preload='auto')
+        source(src='/i/sounds/item-uncheck.mp3', type='audio/mpeg')
+        source(src='/i/sounds/item-uncheck.ogg', type='audio/ogg')
+      audio#audioAddStar(preload='auto')
+        source(src='/i/sounds/add-star.mp3', type='audio/mpeg')
+        source(src='/i/sounds/add-star.ogg', type='audio/ogg')
+      audio#audioSpecial(preload='auto')
+        source(src='/i/sounds/third-star.mp3', type='audio/mpeg')
+        source(src='/i/sounds/third-star.ogg', type='audio/ogg')
+  #ctl13
+  #modalSiteCommand_Master.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modalSiteCommand_MasterLabel', aria-hidden='true', data-modal-title='')
+      .modal-dialog.modal-lg(style='')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+            h4#modalSiteCommand_MasterLabel.modal-title
+          .modal-body
+            #updatePanelSiteCommand
+              #panelModalSiteCommandLoading_Master.pp(style='display:none')
+                img.display-block.centered(src='/images/busy-256.gif')
+              #panelModalSiteCommandContent_Master
+              input#hiddenButtonSiteCommand_Master(type='submit', name='ctl00$ctl00$hiddenButtonSiteCommand_Master', value='', style='display:none;')
+              input#hiddenFieldSiteCommandName_Master(type='hidden', name='ctl00$ctl00$hiddenFieldSiteCommandName_Master')
+              input#hiddenFieldSiteCommandArgument_Master(type='hidden', name='ctl00$ctl00$hiddenFieldSiteCommandArgument_Master')
+  script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
+  script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js')
+  script(src='/bundles/scripts?v=zQnt2Dq-6juBmhmUrPgMdtfLH2kXgaNEWZC0xwuXn_U1')
+  script.
+    Domain='www.listchallenges.com';Device='desktop';LoggedIn=true;IsDevelopmentServer=false;IsSoundOn=true;MobilePlatform='';DisplayDebug=false;UserIsAdmin=false
+  script(type='text/javascript').
+      //<![CDATA[
+      $(function(){LogEvent('user', 'log-in', undefined, undefined);});//]]>
