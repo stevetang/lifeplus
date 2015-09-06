@@ -1,0 +1,18 @@
+extends layout
+
+block header
+  meta(name='description', content='Create a Quest')
+  meta(name='author', content='stang.elite.group')
+  title ALL Quests
+  // Custom styles for this template
+  link(href='/css/createquest.css', rel='stylesheet')
+
+block content
+  form.form-createquest(action='/addquest', method='post')
+    .form-group
+      label(for='questTitle') Quest Title
+      input#questTitle.form-control.input-sm(name='nQuestTitle', type='text', placeholder='Quest Title')
+    .form-group
+      label(for='questDesc') Quest Desc
+      textarea#questDesc.form-control.input-sm(name='nQuestDesc', rows='4', placeholder='Quest Description')
+    button.btn.btn-primary.btn-sm(type='submit') Submit

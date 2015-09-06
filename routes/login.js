@@ -8,16 +8,24 @@ var url = 'mongodb://localhost:27017/lifeplusdb';
 
 var findUsers = function(db, res, user, password, callback) {
   var cursor = db.collection('users').find({name: user, password: password});
+  var i = 0;
   
   cursor.each(function(err, doc) {
     assert.equal(err, null);
-    if (doc != null) {
-      res.render("login", {message: "Success", error: {}});
-    } else {
-      res.render("login", {message: "FAILURE", error: {}});
+    if(doc != null){
+      i++;
+      console.log(i);
       callback();
+    } else {
+      console.log(i);
+      if(i == 0) {
+        db.close();
+        console.log('get in OMG');
+        res.render("login", {message: "FAILURE", error: {}});
+      }
     }
   });
+
 };
 
 router.post('/', function(req, res, next) {
@@ -27,7 +35,7 @@ router.post('/', function(req, res, next) {
     var username = req.body.nInputEmail;
     var password = req.body.nInputPassword
   	findUsers(db, res, username, password, function(){
-  	  db.close();
+      next();
   	});
   });
 

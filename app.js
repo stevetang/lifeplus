@@ -10,6 +10,9 @@ var users = require('./routes/users');
 var create_categories = require('./routes/create_categories');
 var login = require('./routes/login');
 var simplelogin = require('./routes/simplelogin');
+var createquest = require('./routes/create_quest');
+var addquest = require('./routes/add_quest');
+var questlist = require('./routes/quests_list');
 
 var app = express();
 
@@ -29,6 +32,11 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/simplelogin', simplelogin);
 app.use('/login', login);
+app.use('/login', questlist);
+app.use('/createquest', createquest);
+app.use('/addquest', addquest);
+app.use('/addquest', questlist);
+
 // app.use('/createcategories', create_categories);
 
 // catch 404 and forward to error handler
