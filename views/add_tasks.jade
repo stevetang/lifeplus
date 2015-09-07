@@ -1,0 +1,56 @@
+extends layout
+
+block header
+  meta(name='description', content='Add Tasks')
+  meta(name='author', content='stang.elite.group')
+  title ALL Quests
+  // Custom styles for this template
+  link(href='/css/addtasks.css', rel='stylesheet')
+  link(href='/css/bootstrap-switch.min.css', rel='stylesheet')
+
+block content
+  .container.jumbotron
+    form.form-addtasks(action='/addtasks', method='post')
+      input(type='hidden', name='questid', value=questid)
+      .form-group
+        label(for='taskTitle') Task Title
+        input#taskTitle.form-control.input-sm(name='nTaskTitle', type='text', placeholder='Task Title')
+      .form-group
+        label(for='taskDesc') Task Desc
+        textarea#taskDesc.form-control.input-sm(name='nTaskDesc', rows='4', placeholder='Task Description')
+      .form-group
+        label(for='chkbTimer')
+        input#chkbTimer(type='checkbox', name='nTimerValidator', checked='', data-size='mini')
+        | Timer Validator
+      .form-group
+        label(for='chkbCheckin')
+        input#chkbCheckin(type='checkbox', name='nCheckinValidator', checked='', data-size='mini')
+        | Check-in Validator
+      .form-group
+        label(for='chkbAPI')
+        input#chkbAPI(type='checkbox', name='nAPIValidator', checked='', data-size='mini')
+        | API Validator
+      button.btn.btn-primary.btn-sm.pull-right(type='submit') Add Task
+
+  .container
+    .row.row-offcanvas.row-offcanvas-right
+      for val, index in tasks.rows
+        .col-xs-1.col-lg-1
+          p.text-center
+            strong #{index}
+        .col-xs-8.col-lg-8
+          p.text-center
+            strong #{val.title}
+        .col-xs-3.col-lg-3
+          p
+            a.btn.btn-default.btn-sm(href='/createquest', role='button') Edit »
+    // /.for
+  
+  script(src='/js/jquery.min.js')
+  script(src='/js/bootstrap-switch.min.js')
+  script.
+    $(function(argument) {
+      $("[name='nTimerValidator']").bootstrapSwitch();
+      $("[name='nCheckinValidator']").bootstrapSwitch();
+      $("[name='nAPIValidator']").bootstrapSwitch();
+    })

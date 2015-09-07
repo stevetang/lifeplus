@@ -13,6 +13,7 @@ var simplelogin = require('./routes/simplelogin');
 var createquest = require('./routes/create_quest');
 var addquest = require('./routes/add_quest');
 var questlist = require('./routes/quests_list');
+var addtasks = require('./routes/add_tasks');
 
 var app = express();
 
@@ -32,10 +33,10 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/simplelogin', simplelogin);
 app.use('/login', login);
-app.use('/login', questlist);
+app.use('/questlist', questlist);
 app.use('/createquest', createquest);
 app.use('/addquest', addquest);
-app.use('/addquest', questlist);
+app.use('/addtasks', addtasks);
 
 // app.use('/createcategories', create_categories);
 

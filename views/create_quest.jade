@@ -9,10 +9,12 @@ block header
 
 block content
   form.form-createquest(action='/addquest', method='post')
+    input(type='hidden', name='questid', value='123456')
     .form-group
       label(for='questTitle') Quest Title
       input#questTitle.form-control.input-sm(name='nQuestTitle', type='text', placeholder='Quest Title')
     .form-group
       label(for='questDesc') Quest Desc
       textarea#questDesc.form-control.input-sm(name='nQuestDesc', rows='4', placeholder='Quest Description')
-    button.btn.btn-primary.btn-sm(type='submit') Submit
+    button.btn.btn-primary.btn-sm(name='nSave', type='submit', value='addtasks') Add Tasks
+    button.btn.btn-primary.btn-sm.pull-right(name='nSave', type='submit', value='save') Save Quest

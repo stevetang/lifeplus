@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {
     var username = req.body.nInputEmail;
     var password = req.body.nInputPassword
   	findUsers(db, res, username, password, function(){
-      next();
+      res.redirect('/questlist');
   	});
   });
 

@@ -18,14 +18,20 @@ var addQuest = function(db, req, callback) {
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
-  
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    addQuest(db, req, function(){
-      db.close();
-      next();
+
+  if(req.body.nSave == 'addtasks'){
+    res.redirect('/addtasks?questid=' + req.body.questid);
+  }
+
+  if (req.body.nSave == 'save') {
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      addQuest(db, req, function(){
+        db.close();
+        res.redirect('/questlist');
+      });
     });
-  });
+  }
 
 });
 
