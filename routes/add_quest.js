@@ -24,6 +24,7 @@ var addQuest = function(db, questtitle, questdesc, subtasks, callback) {
     assert.equal(err, null);
     console.log(1);
   });
+  callback();
 }
 
 /* GET home page. */
