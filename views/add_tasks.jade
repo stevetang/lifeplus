@@ -10,8 +10,8 @@ block header
 
 block content
   .container.jumbotron
-    form.form-addtasks(action='/addtasks', method='post')
-      input(type='hidden', name='questid', value=questid)
+    form.form-addtasks(action='/createquest', method='get', onsubmit='saveTask()')
+      // input(type='hidden', name='questid', value=questid)
       .form-group
         label(for='taskTitle') Task Title
         input#taskTitle.form-control.input-sm(name='nTaskTitle', type='text', placeholder='Task Title')
@@ -20,37 +20,125 @@ block content
         textarea#taskDesc.form-control.input-sm(name='nTaskDesc', rows='4', placeholder='Task Description')
       .form-group
         label(for='chkbTimer')
-        input#chkbTimer(type='checkbox', name='nTimerValidator', checked='', data-size='mini')
+        input#chkbTimer(type='checkbox', name='nTimerValidator', checked='true', data-size='mini')
         | Timer Validator
       .form-group
         label(for='chkbCheckin')
-        input#chkbCheckin(type='checkbox', name='nCheckinValidator', checked='', data-size='mini')
+        input#chkbCheckin(type='checkbox', name='nCheckinValidator', checked='true', data-size='mini')
         | Check-in Validator
       .form-group
         label(for='chkbAPI')
-        input#chkbAPI(type='checkbox', name='nAPIValidator', checked='', data-size='mini')
+        input#chkbAPI(type='checkbox', name='nAPIValidator', checked='true', data-size='mini')
         | API Validator
-      button.btn.btn-primary.btn-sm.pull-right(type='submit') Add Task
+      button#btnSubmit.btn.btn-primary.btn-sm.pull-right(type='submit') Add Task
 
-  .container
-    .row.row-offcanvas.row-offcanvas-right
-      for val, index in tasks.rows
-        .col-xs-1.col-lg-1
-          p.text-center
-            strong #{index}
-        .col-xs-8.col-lg-8
-          p.text-center
-            strong #{val.title}
-        .col-xs-3.col-lg-3
-          p
-            a.btn.btn-default.btn-sm(href='/createquest', role='button') Edit »
+  //.container
+  //  .row.row-offcanvas.row-offcanvas-right
+  //    for val, index in tasks.rows
+  //      .col-xs-1.col-lg-1
+  //        p.text-center
+  //          strong #{index}
+  //      .col-xs-8.col-lg-8
+  //        p.text-center
+  //          strong #{val.title}
+  //      .col-xs-3.col-lg-3
+  //        p
+  //          a.btn.btn-default.btn-sm(href='/createquest', role='button') Edit »
     // /.for
   
   script(src='/js/jquery.min.js')
   script(src='/js/bootstrap-switch.min.js')
   script.
+    $.urlParam = function(name){
+      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+      if (results==null){
+        return null;
+      }
+      else{
+        return results[1] || 0;
+      }
+    }
+
     $(function(argument) {
       $("[name='nTimerValidator']").bootstrapSwitch();
       $("[name='nCheckinValidator']").bootstrapSwitch();
       $("[name='nAPIValidator']").bootstrapSwitch();
     })
+
+    function saveTask() {
+
+      //alert($('#taskTitle').val());
+      //alert($('#taskDesc').val());
+
+      if($('#taskTitle').val() == '' || $('#taskDesc').val() == '') {
+        alert('Task Title or Tash Desc can NOT be empty!');
+      } else {
+        var cachedTasks = null;
+        if (localStorage.getItem('cachedTasks') != null){
+            cachedTasks = JSON.parse(localStorage.getItem('cachedTasks'));
+        }
+        var taskid = $.urlParam('taskid');
+
+        var timer = 0, checkin = 0, api = 0;
+  
+        if($('#chkbTimer').prop('checked') == true){
+          timer = 1;
+        }
+        if($('#chkbCheckin').prop('checked') == true){
+          checkin = 1;
+        }
+        if($('#chkbAPI').prop('checked') == true){
+          api = 1;
+        }
+        
+        if(taskid != null) {
+          if(cachedTasks != null && cachedTasks[taskid] != null){
+            cachedTasks[taskid] = {'title': $('#taskTitle').val(), 'desc': $('#taskDesc').val(), 'timer': timer, 'checkin': checkin, 'api': api};
+            localStorage.setItem('cachedTasks', JSON.stringify(cachedTasks));
+          }
+        }else {
+          
+          if (cachedTasks == null){
+            cachedTasks = [];
+            cachedTasks[0] = {'title': $('#taskTitle').val(), 
+            'desc': $('#taskDesc').val(), 
+            'timer': timer, 
+            'checkin': checkin, 
+            'api': api};
+          } else {
+            cachedTasks[cachedTasks.length] = {'title': $('#taskTitle').val(), 
+            'desc': $('#taskDesc').val(),
+            'timer': timer, 
+            'checkin': checkin, 
+            'api': api};
+          }
+  
+          localStorage.setItem('cachedTasks', JSON.stringify(cachedTasks));
+          //alert(localStorage.getItem('cachedTasks'));
+        }
+      }
+    }
+
+    var taskid = $.urlParam('taskid');
+    if (taskid != null){
+      var tasks = JSON.parse(localStorage.getItem('cachedTasks'));
+      var task = tasks[taskid];
+      $('#taskTitle').val(task.title);
+      $('#taskDesc').val(task.desc);
+      if(task.timer == 1){
+        $('#chkbTimer').prop('checked', true);
+      } else {
+        $('#chkbTimer').prop('checked', false);
+      }
+      if(task.checkin == 1){
+        $('#chkbCheckin').prop('checked', true);
+      } else {
+        $('#chkbCheckin').prop('checked', false);
+      }
+      if(task.api == 1){
+        $('#chkbAPI').prop('checked', true);
+      } else {
+        $('#chkbAPI').prop('checked', false);
+      }
+      $('#btnSubmit').html('Save');
+    }

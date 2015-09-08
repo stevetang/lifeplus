@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('create_quest');
 });
 
+router.post('/', function(req, res, next) {
+  res.render('create_quest');
+});
+
 module.exports = router;

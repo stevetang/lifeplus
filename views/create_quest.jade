@@ -8,13 +8,43 @@ block header
   link(href='/css/createquest.css', rel='stylesheet')
 
 block content
-  form.form-createquest(action='/addquest', method='post')
-    input(type='hidden', name='questid', value='123456')
-    .form-group
-      label(for='questTitle') Quest Title
-      input#questTitle.form-control.input-sm(name='nQuestTitle', type='text', placeholder='Quest Title')
-    .form-group
-      label(for='questDesc') Quest Desc
-      textarea#questDesc.form-control.input-sm(name='nQuestDesc', rows='4', placeholder='Quest Description')
-    button.btn.btn-primary.btn-sm(name='nSave', type='submit', value='addtasks') Add Tasks
-    button.btn.btn-primary.btn-sm.pull-right(name='nSave', type='submit', value='save') Save Quest
+  .container
+    form.form-createquest(action='/addquest', method='post', onsubmit='return prepform()')
+      input#relatedTasks(type='hidden', name='relatedTasks', value='')
+      .form-group
+        label(for='questTitle') Quest Title
+        input#questTitle.form-control.input-sm(name='nQuestTitle', type='text', placeholder='Quest Title')
+      .form-group
+        label(for='questDesc') Quest Desc
+        textarea#questDesc.form-control.input-sm(name='nQuestDesc', rows='4', placeholder='Quest Description')
+      a.btn.btn-primary.btn-sm(href='/addtasks', role='button') Add Task
+      button.btn.btn-primary.btn-sm.pull-right(name='nSave', type='submit', value='save') Save Quest
+  hr
+  .container
+    .row#rowID.auto-wrap
+
+  script(src='/js/jquery.min.js')
+  script.
+    function prepform(){
+      if($('#questTitle').val() == '' || $('#questDesc').val() == ''){
+        alert('please fill in both quest title and description.');
+        return false;
+      }
+      $('#relatedTasks').val(localStorage.getItem("cachedTasks"));
+      return true;
+    }
+    
+    var cachedTasks = JSON.parse(localStorage.getItem('cachedTasks'));
+    var strheader = '<div class=\"col-xs-12 col-lg-4\"><div class=\"thumbnail\">'
+    for(var i = 0; i < cachedTasks.length; i++){
+      var title = '<h3>' + cachedTasks[i].title + '</h3>';
+      var desc = '<p class=\"text-wrap\">' + cachedTasks[i].desc + '</p>';
+      var validator = '<p>Validator:';
+      validator = (cachedTasks[i].timer == 1) ? (validator + ' Timer') : validator;
+      validator = (cachedTasks[i].checkin == 1)?validator+' CheckIn':validator;
+      validator = (cachedTasks[i].timer == 1)?validator+' API':validator;
+      validator += '</p>';
+      var footer = '<a href=\"/addtasks\?taskid=' + i + '\" role=\"button\" class=\"btn btn-default text-right\">Edit »</a></div></div>';
+      var elem = strheader + title + desc + validator + footer;
+      $('#rowID').append(elem);
+    }
