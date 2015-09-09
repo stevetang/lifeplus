@@ -10,8 +10,10 @@ block header
 
 block content
   .container.jumbotron
-    form.form-addtasks(action='/createquest', method='get', onsubmit='saveTask()')
-      // input(type='hidden', name='questid', value=questid)
+    form.form-addtasks(action='/createquest', method='post', onsubmit='return saveTask();')
+      input#hiddenQuestId(type='hidden', name='hiddenQuestId', value='#{id}')
+      input#hiddenQuestTitle(type='hidden', name='hiddenQuestTitle', value='#{title}')
+      input#hiddenQuestDesc(type='hidden', name='hiddenQuestDesc', value='#{desc}')
       .form-group
         label(for='taskTitle') Task Title
         input#taskTitle.form-control.input-sm(name='nTaskTitle', type='text', placeholder='Task Title')
@@ -59,7 +61,7 @@ block content
       }
     }
 
-    $(function(argument) {
+    $(function() {
       $("[name='nTimerValidator']").bootstrapSwitch();
       $("[name='nCheckinValidator']").bootstrapSwitch();
       $("[name='nAPIValidator']").bootstrapSwitch();
@@ -72,6 +74,7 @@ block content
 
       if($('#taskTitle').val() == '' || $('#taskDesc').val() == '') {
         alert('Task Title or Tash Desc can NOT be empty!');
+        return false;
       } else {
         var cachedTasks = null;
         if (localStorage.getItem('cachedTasks') != null){

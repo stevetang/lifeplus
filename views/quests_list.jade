@@ -42,7 +42,7 @@ block content
               p.text-wrap
                 | #{val.description}
               p
-                a.btn.btn-default(href='#', role='button') View details »
+                a.btn.btn-default(href='/createquest?questid=#{val.questid}', role='button') View details »
             // /.col-xs-12.col-lg-4
           // /.for
         // /row
@@ -61,3 +61,14 @@ block content
   // IE10 viewport hack for Surface/desktop Windows 8 bug
   script(src='/js/ie10-viewport-bug-workaround.js')
   script(src='/js/offcanvas.js')
+  script.
+    var del = #{deleteTmpTasks};
+    //alert(del);
+    if(del != null && del == 1){
+      localStorage.removeItem('cachedTasks');
+      //if(localStorage.getItem('cachedTasks') == null){
+      //  alert('success');
+      //} else {
+      //  alert('fali');
+      //}
+    }

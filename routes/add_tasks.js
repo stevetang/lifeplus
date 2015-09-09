@@ -49,8 +49,13 @@ router.get('/', function(req, res, next) {
 
   //   });
   // });
-  console.log('in');
-  res.render("add_tasks");
+  var mid = req.query.id;
+  var mtitle = req.query.title;
+  var mdesc = req.query.desc;
+  console.log(mid);
+  console.log(mtitle);
+  console.log(mdesc);
+  res.render("add_tasks", {id: mid, title: mtitle, desc: mdesc});
 
 });
 

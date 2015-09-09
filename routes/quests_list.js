@@ -7,13 +7,16 @@ var assert = require('assert');
 var url = 'mongodb://localhost:27017/lifeplusdb';
 
 var findQuests = function(db, resultset, callback) {
-  var cursor = db.collection('quests').find({}, {_id: 0});
+  var cursor = db.collection('quests').find({});
   var i = 0;
 
   cursor.each(function(err, doc) {
     assert.equal(err, null);
     if (doc != null) {
-      resultset.rows[i++] = doc;
+      resultset.rows[i] = doc;
+      console.dir(doc._id);
+      resultset.rows[i].questid = doc._id.toString();
+      i++;
     } else {
       callback();
     }
@@ -30,8 +33,9 @@ router.get('/', function(req, res, next) {
   	findQuests(db, resultset, function(){
 
       if (resultset != null) {
+        console.dir(resultset);
         res.render("quests_list",
-        { quests: resultset});
+        { quests: resultset, deleteTmpTasks: 0});
       }
   	  db.close();
 
