@@ -35,7 +35,7 @@ router.get('/', function(req, res, next) {
       if (resultset != null) {
         console.dir(resultset);
         res.render("quests_list",
-        { quests: resultset, deleteTmpTasks: 0});
+        { quests: resultset, deleteTmpTasks: 1});
       }
   	  db.close();
 

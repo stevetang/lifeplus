@@ -5,6 +5,7 @@ var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/lifeplusdb';
+var ObjectId = require('mongodb').ObjectID;
 
 // var addTask = function(db, req, callback) {
 //   var col = db.collection('tasks');
@@ -31,6 +32,36 @@ var url = 'mongodb://localhost:27017/lifeplusdb';
 //   });
 // };
 
+// var findTask = function(db, taskid, qid, callback) {
+//   console.dir(ObjectId(taskid));
+//   var cursor = db.collection('tasks').find({_id: ObjectId(taskid)});
+
+//   cursor.each(function(err, doc) {
+//     assert.equal(err, null);
+//     if (doc != null) {
+//       qid.questid = doc.questid.toString();
+//       console.log(qid);
+//     } else {
+//       console.log(qid);
+//       callback();
+//     }
+//   });
+// }
+
+var findQuest = function(db, questid, questtitle, questdesc, callback) {
+  var cursor = db.collection('quests').find({_id: ObjectId(questid)});
+
+  cursor.each(function(err, doc) {
+    assert.equal(err, null);
+    if (doc != null) {
+      questtitle.title = doc.title;
+      questdesc.desc = doc.description;
+    } else {
+      callback();
+    }
+  });
+}
+
 router.get('/', function(req, res, next) {
 
   // req.query.questid
@@ -49,13 +80,41 @@ router.get('/', function(req, res, next) {
 
   //   });
   // });
-  var mid = req.query.id;
-  var mtitle = req.query.title;
-  var mdesc = req.query.desc;
-  console.log(mid);
-  console.log(mtitle);
-  console.log(mdesc);
-  res.render("add_tasks", {id: mid, title: mtitle, desc: mdesc});
+
+  // var mid = req.query.id;
+  // var mtitle = req.query.title;
+  // var mdesc = req.query.desc;
+  // var taskid = '55f1831284364ee624d6963b';
+  // var qid = {questid: ''};
+
+  // MongoClient.connect(url, function(err, db) {
+  //   assert.equal(null, err);
+  //   findTask(db, taskid, qid, function(){
+  //     console.dir(data);
+  //     console.dir(qid);
+  //   });
+      
+  // });
+
+  if(req.query.questid != null && req.query.questid != ''){
+    var mtitle = {title: ''}, mdesc = {desc: ''};
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+        // findTask(db, req.query.taskid, qid, function(){
+        // console.dir(qid);
+      findQuest(db, req.query.questid, mtitle, mdesc, function(){
+        db.close();
+        console.dir(mtitle.title);
+        console.dir(mdesc.desc);
+        res.render("add_tasks", {id: req.query.questid, title: mtitle.title, desc: mdesc.desc});
+      });
+    });
+  }else{
+    var mid = req.query.id;
+    var mtitle = req.query.title;
+    var mdesc = req.query.desc;
+    res.render("add_tasks", {id: mid, title: mtitle, desc: mdesc});
+  }
 
 });
 

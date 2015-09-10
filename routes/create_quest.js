@@ -44,11 +44,16 @@ router.get('/', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     findQuests(db, req.query.questid, data, function(){
-      //console.dir(data);
+      // console.dir(data);
       findTasks(db, data, req.query.questid, function(){
       	db.close();
         //console.dir(data);
         var result = {id: req.query.questid, title: data.title, desc: data.desc, tasks: JSON.stringify(data.tasks)};
+        // console.dir('start');
+        // console.dir(req.query.questid);
+        // console.dir(data.title);
+        // console.dir(data.desc);
+        // console.dir(JSON.stringify(data.tasks));
         res.render('create_quest', {quests: result});
       })
     });
@@ -58,6 +63,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var result = {id: req.body.hiddenQuestId, title: req.body.hiddenQuestTitle, desc: req.body.hiddenQuestDesc, tasks: ''};
+  // console.dir(result);
   res.render('create_quest', {quests: result});
 });
 

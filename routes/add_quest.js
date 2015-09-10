@@ -17,7 +17,7 @@ var addQuest = function(db, questtitle, questdesc, subtasks, callback) {
     console.log(r);
     console.log(id);
     assert.equal(null, err);
-    if(subtasks != null){
+    if(subtasks != null && subtasks.length != 0){
       addTasks(db, id, subtasks, callback);
     } else {
       callback();
@@ -77,6 +77,57 @@ var findQuests = function(db, resultset, callback) {
   });
 }
 
+var updateQuest = function(db, questid, questtitle, questdesc, subtasks, callback) {
+  var col = db.collection('quests');
+  col.update({_id: ObjectId(questid)}, {title: questtitle, description: questdesc}, function(err, r) {
+    assert.equal(null, err);
+    if(subtasks != null && subtasks.length != 0){
+      updateTasks(db, questid, subtasks, callback);
+    } else {
+      callback();
+    }
+  });
+}
+
+var updateTasks = function(db, questid, subtasks, callback){
+  if (db == null || questid == null || subtasks == null || callback == null){
+    console.log(db);
+    console.log(questid);
+    console.log(subtasks);
+    console.log(callback);
+  }
+
+  var cursor = db.collection('tasks').find({questid: ObjectId(questid)});
+  var col = db.collection('tasks');
+  var i = 0;
+
+  cursor.each(function(err, doc) {
+    assert.equal(err, null);
+    if (doc != null) {
+      var curtask = subtasks[i];
+      col.update({_id: doc._id}, {$set: {title: curtask.title, 
+        desc: curtask.desc, 
+        timer: curtask.timer, 
+        checkin: curtask.checkin, 
+        api: curtask.api} });
+      i++;
+    } else {
+      if(subtasks.length > i) {
+        var newtasks = [];
+        for (var j = 0; (i+j) < subtasks.length; j++) {
+          newtasks[j] = subtasks[i+j];
+          newtasks[j].questid = ObjectId(questid);
+        }
+        col.insertMany(newtasks, function(err, r) {
+          assert.equal(null, err);
+          assert.equal(newtasks.length, r.insertedCount);
+        });
+      }
+      callback();
+    }
+  });
+}
+
 
   // console.dir(objId);
   // var curser = db.collection('quests').find({_id: objId});
@@ -119,26 +170,42 @@ router.post('/', function(req, res, next) {
   // console.log(req.body.nQuestDesc);
   // console.log(req.body.relatedTasks);
 
-  var subtasks = null;
+  var subtasks = [];
   console.dir(req.body.relatedTasks);
   if (req.body.relatedTasks != '') {
     subtasks = JSON.parse(req.body.relatedTasks);
   };
   var questtitle = req.body.nQuestTitle;
   var questdesc = req.body.nQuestDesc;
+  var questid = req.body.hiddenQuestId;
+  
+  if (questid != null && questid != 'undefined') {
 
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    addQuest(db, questtitle, questdesc, subtasks, function(){
-      var resultset = {"rows": []};
-      findQuests(db, resultset, function(){
-        db.close();
-        res.render('quests_list', {quests: resultset, deleteTmpTasks: 1});
+    MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      //console.log('questid have:' + questid);
+      updateQuest(db, questid, questtitle, questdesc, subtasks, function(){
+        var resultset = {"rows": []};
+        findQuests(db, resultset, function(){
+          db.close();
+          res.render('quests_list', {quests: resultset, deleteTmpTasks: 1});
+        });
       });
     });
-  });
-  // }
 
+  } else {
+    MongoClient.connect(url, function(err, db) {
+      console.log('questid have not');
+      assert.equal(null, err);
+      addQuest(db, questtitle, questdesc, subtasks, function(){
+        var resultset = {"rows": []};
+        findQuests(db, resultset, function(){
+          db.close();
+          res.render('quests_list', {quests: resultset, deleteTmpTasks: 1});
+        });
+      });
+    });
+  }
 });
 
 module.exports = router;

@@ -49,7 +49,12 @@ block content
         validator = (cachedTasks[i].checkin == 1)?validator+' CheckIn':validator;
         validator = (cachedTasks[i].timer == 1)?validator+' API':validator;
         validator += '</p>';
-        var footer = '<a href=\"/addtasks\?taskid=' + i + '\" role=\"button\" class=\"btn btn-default text-right\">Edit »</a></div>';
+        var footer = '';
+        if($('#relatedTasks').val() != ''){
+          footer = '<a href=\"/addtasks\?taskid=' + i + '&questid=' + $('#hiddenQuestId').val() + '\" role=\"button\" class=\"btn btn-default text-right\">Edit »</a></div>';
+        } else {
+          footer = '<a href=\"/addtasks\?taskid=' + i + '\" role=\"button\" class=\"btn btn-default text-right\">Edit »</a></div>';
+        }
         var elem = strheader + title + desc + validator + footer;
         $('#rowID').append(elem);
       }
